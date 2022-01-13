@@ -1,21 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vinzentjenner_github/src/functionality/globals.dart';
 
 class ExperienceSliver extends StatefulWidget {
-  const ExperienceSliver({Key? key}) : super(key: key);
+  final ScrollController scrollController;
+  const ExperienceSliver({Key? key, required this.scrollController}) : super(key: key);
 
   @override
   _ExperienceSliverState createState() => _ExperienceSliverState();
 }
 
 class _ExperienceSliverState extends State<ExperienceSliver> {
-  late final ScrollController _scrollController;
+  double p = 0;
 
   @override
   void initState() {
-    _scrollController = ScrollController();
+    widget.scrollController.addListener(() {setState(() {
+      p = widget.scrollController.offset;
+    });});
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,11 @@ class _ExperienceSliverState extends State<ExperienceSliver> {
           children: [
             Container(
               decoration: BoxDecoration(color: Colors.red),
-              child: Text("Hello", style: TextStyle(fontSize: 100),),
+              child: Center(
+                  child: Text(
+                "$p",
+                style: TextStyle(fontSize: 100),
+              )),
             )
           ],
         ),

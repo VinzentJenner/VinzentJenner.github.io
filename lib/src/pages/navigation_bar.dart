@@ -15,14 +15,16 @@ class HoverText extends StatefulWidget {
   final String text;
   final double fontSize;
   final Color textColor, hoverColor;
-
+  final ScrollController? scrollController;
+  final Function? onPressed;
 
   const HoverText(this.text,
       {Key? key,
       this.fontSize = 20.0,
       this.hoverColor = Colors.orange,
       this.textColor = Colors.black,
-      })
+      this.scrollController,
+      this.onPressed})
       : super(key: key);
 
   @override
@@ -40,33 +42,46 @@ class HoverTextState extends State<HoverText> {
         color: _hovering ? widget.hoverColor : widget.textColor);
     var trans = _hovering ? hoverTransform : Matrix4.identity();
 
-    return MouseRegion(
+    return TextButton(
+      style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(Colors.transparent)),
       onHover: (e) {
         setState(() {
-          _hovering = true;
+          _hovering = e;
         });
       },
-      onExit: (e) {
-        setState(() {
-          _hovering = false;
-        });
+      onPressed: () {
+        widget.scrollController?.animateTo(10,
+            duration: const Duration(milliseconds: 1000),
+            curve: Curves.fastOutSlowIn);
+        widget.onPressed?.call();
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 50),
         transform: trans,
-        child: Text(widget.text, style: textStyle, textAlign: TextAlign.left,),),
-      );
+        child: Text(
+          widget.text,
+          style: textStyle,
+          textAlign: TextAlign.left,
+        ),
+      ),
+    );
   }
 }
 
 class Menu extends StatefulWidget {
+  final ScrollController scrollController;
+  const Menu({required this.scrollController});
+
   @override
   _MenuState createState() => _MenuState();
 }
 
-class _MenuState extends State<Menu>
-    with SingleTickerProviderStateMixin {
+class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
+  late final double sliverHeight;
   late AnimationController _staggeredController;
+  double get height => MediaQuery.of(context).size.height;
+  double get width => MediaQuery.of(context).size.width;
 
   static const _menuTitles = ["Profile", "Experience", "Projects"];
 
@@ -74,7 +89,8 @@ class _MenuState extends State<Menu>
   static const _itemSlideTime = Duration(milliseconds: 250);
   static const _staggerTime = Duration(milliseconds: 160);
   final _animationDuration = _initialDelayTime +
-      (_staggerTime * _menuTitles.length) + Duration(milliseconds: 500);
+      (_staggerTime * _menuTitles.length) +
+      Duration(milliseconds: 500);
   final List<Interval> _itemSlideIntervals = [];
 
   void _createAnimationIntervals() {
@@ -89,7 +105,6 @@ class _MenuState extends State<Menu>
       );
     }
   }
-
 
   Widget _buildContent() {
     return Column(
@@ -126,7 +141,12 @@ class _MenuState extends State<Menu>
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 16),
-            child: HoverText(_menuTitles[i]),
+            child: HoverText(
+              _menuTitles[i],
+              onPressed: () {
+                widget.scrollController.animateTo(height*i, duration: Duration(milliseconds: 700), curve: Curves.fastOutSlowIn);
+              },
+            ),
           ),
         ),
       );
@@ -156,9 +176,7 @@ class _MenuState extends State<Menu>
       color: Colors.white,
       child: Stack(
         fit: StackFit.expand,
-        children: [
-          _buildContent()
-        ],
+        children: [_buildContent()],
       ),
     );
   }

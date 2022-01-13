@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vinzentjenner_github/src/widgets/experience.dart';
+import 'package:vinzentjenner_github/src/pages//experience.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vinzentjenner_github/src/widgets/navigation_bar.dart';
-import 'package:vinzentjenner_github/src/widgets/profile.dart';
+import 'package:vinzentjenner_github/src/pages/navigation_bar.dart';
+import 'package:vinzentjenner_github/src/pages/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,13 +35,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
+  final scrollViewKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        controller: _scrollController,
+        controller: scrollController,
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.transparent,
@@ -50,12 +62,19 @@ class _MyHomePageState extends State<MyHomePage> {
             floating: true,
           ),
           OnLoadAnimationSliver(),
-          ExperienceSliver(),
+          ExperienceSliver(scrollController: scrollController,),
         ],
       ),
       drawer: Drawer(
-        child: Menu(),
+        child: Menu(
+          scrollController: scrollController,
+        ),
       ),
     );
+  }
+
+  getF() {
+    Scrollable.ensureVisible(context);
+    return 4;
   }
 }

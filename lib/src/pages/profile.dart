@@ -71,7 +71,6 @@ class Profile extends StatelessWidget {
 
 class OnLoadAnimationSliver extends StatefulWidget {
   const OnLoadAnimationSliver({Key? key}) : super(key: key);
-
   @override
   _OnLoadAnimationSliverState createState() => _OnLoadAnimationSliverState();
 }
@@ -81,7 +80,8 @@ class _OnLoadAnimationSliverState extends State<OnLoadAnimationSliver> {
   final TextStyle textStyle = const TextStyle(fontSize: 150);
 
   TypewriterAnimatedText _animatedText(String text) {
-    return TypewriterAnimatedText(text, speed: typeSpeed, textStyle: textStyle, cursor: '_');
+    return TypewriterAnimatedText(text,
+        speed: typeSpeed, textStyle: textStyle, cursor: '_');
   }
 
   @override
@@ -99,14 +99,19 @@ class _OnLoadAnimationSliverState extends State<OnLoadAnimationSliver> {
                     _animatedText("Hi, my name is"),
                     _animatedText("Hej, jag heter")
                   ]),
-                  Text("Simon", style: textStyle,)
+                  Text(
+                    "Simon",
+                    style: textStyle,
+                  )
                 ],
               )),
           Column(
-            children: [SizedBox(
-              width: MediaQuery.of(context).size.width * 0.35,
-              child: CircularImage("assets/images/profile.jpg"),
-            )],
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: CircularImage("assets/images/profile.jpg"),
+              )
+            ],
           )
         ],
       ),
