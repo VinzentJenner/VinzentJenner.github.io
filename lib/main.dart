@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:test_android/src/widgets/experience.dart';
-import 'package:test_android/src/widgets/profile.dart';
-import 'package:test_android/src/widgets/navigation_bar.dart';
+import 'package:vinzentjenner_github/src/widgets/experience.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vinzentjenner_github/src/widgets/navigation_bar.dart';
+import 'package:vinzentjenner_github/src/widgets/profile.dart';
 
 void main() {
   runApp(const MyApp());
