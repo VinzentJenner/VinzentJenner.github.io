@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vinzentjenner_github/src/functionality/TextWidgets.dart';
 
 //https://dariadobszai.medium.com/interactive-navigation-items-in-flutter-web-7fccc5975779
 
@@ -10,64 +11,6 @@ void _openLinkedIn() async {
   if (!await launch(_url)) throw 'Could not launch $_url';
 }
 //Drawer -----------------------
-
-class HoverText extends StatefulWidget {
-  final String text;
-  final double fontSize;
-  final Color textColor, hoverColor;
-  final ScrollController? scrollController;
-  final Function? onPressed;
-
-  const HoverText(this.text,
-      {Key? key,
-      this.fontSize = 20.0,
-      this.hoverColor = Colors.orange,
-      this.textColor = Colors.black,
-      this.scrollController,
-      this.onPressed})
-      : super(key: key);
-
-  @override
-  HoverTextState createState() => HoverTextState();
-}
-
-class HoverTextState extends State<HoverText> {
-  bool _hovering = false;
-  final hoverTransform = Matrix4.identity()..scale(1.5);
-
-  @override
-  Widget build(BuildContext context) {
-    var textStyle = TextStyle(
-        fontSize: 20.0,
-        color: _hovering ? widget.hoverColor : widget.textColor);
-    var trans = _hovering ? hoverTransform : Matrix4.identity();
-
-    return TextButton(
-      style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent)),
-      onHover: (e) {
-        setState(() {
-          _hovering = e;
-        });
-      },
-      onPressed: () {
-        widget.scrollController?.animateTo(10,
-            duration: const Duration(milliseconds: 1000),
-            curve: Curves.fastOutSlowIn);
-        widget.onPressed?.call();
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 50),
-        transform: trans,
-        child: Text(
-          widget.text,
-          style: textStyle,
-          textAlign: TextAlign.left,
-        ),
-      ),
-    );
-  }
-}
 
 class Menu extends StatefulWidget {
   final ScrollController scrollController;
