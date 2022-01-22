@@ -1,22 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-
-class CircularImage extends StatelessWidget {
-  final String path;
-  final double width, height;
-  const CircularImage(this.path,
-      {this.width = 150, this.height = 150, Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: CircleAvatar(
-      backgroundImage: AssetImage(path),
-      radius: 200.0,
-    ));
-  }
-}
+import 'package:vinzentjenner_github/src/functionality/customClasses.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);

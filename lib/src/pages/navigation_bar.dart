@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vinzentjenner_github/src/functionality/TextWidgets.dart';
+import 'package:vinzentjenner_github/src/functionality/customClasses.dart';
 
 //https://dariadobszai.medium.com/interactive-navigation-items-in-flutter-web-7fccc5975779
 

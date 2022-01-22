@@ -92,3 +92,20 @@ class ContinueEndAnimationText extends StatelessWidget {
     ]);
   }
 }
+
+class CircularImage extends StatelessWidget {
+  final String path;
+  final double width, height, radius;
+  const CircularImage(this.path,
+      {this.width = 150, this.height = 150, this.radius = 100, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: CircleAvatar(
+          backgroundImage: AssetImage(path),
+          radius: radius,
+        ));
+  }
+}

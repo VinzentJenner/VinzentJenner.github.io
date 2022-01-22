@@ -1,3 +1,4 @@
+import 'package:animated_background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:vinzentjenner_github/src/pages//experience.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget{
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
@@ -34,7 +35,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
   final ScrollController scrollController = ScrollController();
   final scrollViewKey = GlobalKey();
 
@@ -55,13 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: CustomScrollView(
         controller: scrollController,
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             iconTheme: IconThemeData(color: Colors.orange),
             floating: true,
+            pinned: true,
           ),
-          OnLoadAnimationSliver(),
+          const OnLoadAnimationSliver(),
           ExperienceSliver(scrollController: scrollController,),
         ],
       ),
@@ -71,10 +73,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
-
-  getF() {
-    Scrollable.ensureVisible(context);
-    return 4;
   }
 }

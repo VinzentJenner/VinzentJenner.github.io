@@ -38,6 +38,7 @@ dependencies:
   url_launcher: any
   google_fonts: any
   animated_text_kit: ^4.2.1
+  animated_background: any
 
 dev_dependencies:
   flutter_test:
