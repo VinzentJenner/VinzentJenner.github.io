@@ -120,7 +120,4 @@ class _ExperienceSliverState extends State<ExperienceSliver> {
       ),
     );
   }
-
-
-
 }
